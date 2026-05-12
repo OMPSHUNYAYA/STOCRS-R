@@ -1,0 +1,34 @@
+STOCRS-R Demo v0.3 VERIFY
+Output is resolved from structure.
+
+Principle: output = resolve(structure)
+Law: output_visible iff structure_complete AND structure_consistent
+
+Classical view: execute steps in sequence to produce output
+STOCRS-R view: resolve admissible structure to reveal output
+
+Functional update story: Only the coupon policy value changed from 15 to 25. The resolver and module structure remained intact.
+Functional update changed policy lines: 1
+
+Base final total: 330.0
+Reused template final total: 374.0
+Enhanced final total v1: 313.5
+Enhanced final total v2: 302.5
+Enhancement v1 improves total: True
+Enhancement v2 improves total: True
+Enhancement v1 savings: 16.5
+Enhancement v2 additional savings: 11.0
+Enhancement v2 total savings from base: 27.5
+
+Same structure same output: True
+Same structure same state: True
+Same structure same certificate: True
+Incomplete state: INCOMPLETE
+Conflict state: CONFLICT
+
+Base run A certificate: cff9548b4a30a6b135a982afa0e6a73056f37c6eae7a1a1c030c4a031812ab87
+Base run B certificate: cff9548b4a30a6b135a982afa0e6a73056f37c6eae7a1a1c030c4a031812ab87
+Reusable template certificate: 04b1284d3035d3f27258f5f560a1ce4af5d63fe23c48e731bde49c55076bf714
+Enhanced v1 certificate: 0734e441f158f090143391402044cc906f5a11cebdd0992907926aa5e4477f9c
+Enhanced v2 certificate: 30216b6928bc11d263a0eb95150b863645cb02dfc07c6124daff19111ca654ed
+Demo certificate: 1ca1850c8ab2b203ec4f483d486c862de2096570020754885205d26e20ebaec9

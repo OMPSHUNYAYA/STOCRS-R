@@ -1,0 +1,458 @@
+{
+  "base_final_total": 330.0,
+  "base_order_run_a": {
+    "blocked": [],
+    "certificate": "cff9548b4a30a6b135a982afa0e6a73056f37c6eae7a1a1c030c4a031812ab87",
+    "conflicts": {},
+    "frontiers": [
+      [
+        "ITEM_A_PRICE",
+        "ITEM_A_QTY",
+        "ITEM_B_PRICE",
+        "ITEM_B_QTY"
+      ],
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "known_count": 12,
+    "known_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "state": "RESOLVED",
+    "structure_signature": "e99e476ea182aa9e50db51f603c84848d08834fa816e02de5a887c9ce745ca0a",
+    "unresolved": [],
+    "values": {
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 330.0,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 30.0
+    }
+  },
+  "base_order_run_b": {
+    "blocked": [],
+    "certificate": "cff9548b4a30a6b135a982afa0e6a73056f37c6eae7a1a1c030c4a031812ab87",
+    "conflicts": {},
+    "frontiers": [
+      [
+        "ITEM_A_PRICE",
+        "ITEM_A_QTY",
+        "ITEM_B_PRICE",
+        "ITEM_B_QTY"
+      ],
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "known_count": 12,
+    "known_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "state": "RESOLVED",
+    "structure_signature": "e99e476ea182aa9e50db51f603c84848d08834fa816e02de5a887c9ce745ca0a",
+    "unresolved": [],
+    "values": {
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 330.0,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 30.0
+    }
+  },
+  "classical_view": "execute steps in sequence to produce output",
+  "conflict_run": {
+    "blocked": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "certificate": "66d4032e6c727b033bb9d855dd20420fe839e76230df5b5cb03de1e627c738fa",
+    "conflicts": {
+      "ITEM_A_PRICE": {
+        "claims": [
+          120,
+          999
+        ],
+        "type": "multi_value_conflict"
+      }
+    },
+    "frontiers": [
+      [
+        "ITEM_B_TOTAL"
+      ]
+    ],
+    "known_count": 12,
+    "known_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "state": "CONFLICT",
+    "structure_signature": "e99e476ea182aa9e50db51f603c84848d08834fa816e02de5a887c9ce745ca0a",
+    "unresolved": [
+      "ITEM_A_PRICE"
+    ],
+    "values": {
+      "ITEM_A_QTY": 2,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80
+    }
+  },
+  "demo_certificate": "1ca1850c8ab2b203ec4f483d486c862de2096570020754885205d26e20ebaec9",
+  "enhanced_coupon_run_v1": {
+    "blocked": [],
+    "certificate": "0734e441f158f090143391402044cc906f5a11cebdd0992907926aa5e4477f9c",
+    "conflicts": {},
+    "frontiers": [
+      [
+        "ITEM_A_PRICE",
+        "ITEM_A_QTY",
+        "ITEM_B_PRICE",
+        "ITEM_B_QTY"
+      ],
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "LOYALTY_COUPON",
+        "SHIPPING"
+      ],
+      [
+        "AFTER_COUPON"
+      ],
+      [
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "known_count": 14,
+    "known_nodes": [
+      "AFTER_COUPON",
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "LOYALTY_COUPON",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "state": "RESOLVED",
+    "structure_signature": "e576c8808cc6b2b69cf25673c6d6f101707ea58f65f1d011d7e246d069ca03b1",
+    "unresolved": [],
+    "values": {
+      "AFTER_COUPON": 285,
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 313.5,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "LOYALTY_COUPON": 15,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 28.5
+    }
+  },
+  "enhanced_coupon_run_v2": {
+    "blocked": [],
+    "certificate": "30216b6928bc11d263a0eb95150b863645cb02dfc07c6124daff19111ca654ed",
+    "conflicts": {},
+    "frontiers": [
+      [
+        "ITEM_A_PRICE",
+        "ITEM_A_QTY",
+        "ITEM_B_PRICE",
+        "ITEM_B_QTY"
+      ],
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "LOYALTY_COUPON",
+        "SHIPPING"
+      ],
+      [
+        "AFTER_COUPON"
+      ],
+      [
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "known_count": 14,
+    "known_nodes": [
+      "AFTER_COUPON",
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "LOYALTY_COUPON",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "state": "RESOLVED",
+    "structure_signature": "e576c8808cc6b2b69cf25673c6d6f101707ea58f65f1d011d7e246d069ca03b1",
+    "unresolved": [],
+    "values": {
+      "AFTER_COUPON": 275,
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 302.5,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "LOYALTY_COUPON": 25,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 27.5
+    }
+  },
+  "enhanced_final_total_v1": 313.5,
+  "enhanced_final_total_v2": 302.5,
+  "enhancement_v1_improves_total": true,
+  "enhancement_v1_savings": 16.5,
+  "enhancement_v2_additional_savings": 11.0,
+  "enhancement_v2_improves_total": true,
+  "enhancement_v2_total_savings_from_base": 27.5,
+  "functional_update_changed_policy_lines": 1,
+  "functional_update_story": "Only the coupon policy value changed from 15 to 25. The resolver and module structure remained intact.",
+  "incomplete_run": {
+    "blocked": [],
+    "certificate": "dc55897dfb9b09c0283afd18c56fc4a2cec5febbaef5056c0f72914f36c58807",
+    "conflicts": {},
+    "frontiers": [
+      [
+        "ITEM_A_PRICE",
+        "ITEM_A_QTY"
+      ],
+      [
+        "ITEM_A_TOTAL"
+      ]
+    ],
+    "known_count": 10,
+    "known_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "state": "INCOMPLETE",
+    "structure_signature": "3b6a15809ca06d3c08d147cada7601d8e9d7db5a03ed20485e57f1a57bf2f723",
+    "unresolved": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "values": {
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240
+    }
+  },
+  "law": "output_visible iff structure_complete AND structure_consistent",
+  "name": "STOCRS-R Demo",
+  "principle": "output = resolve(structure)",
+  "reusable_template_run": {
+    "blocked": [],
+    "certificate": "04b1284d3035d3f27258f5f560a1ce4af5d63fe23c48e731bde49c55076bf714",
+    "conflicts": {},
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "known_count": 12,
+    "known_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "state": "RESOLVED",
+    "structure_signature": "e99e476ea182aa9e50db51f603c84848d08834fa816e02de5a887c9ce745ca0a",
+    "unresolved": [],
+    "values": {
+      "AFTER_DISCOUNT": 340,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 374.0,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 1,
+      "ITEM_A_TOTAL": 120,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 3,
+      "ITEM_B_TOTAL": 240,
+      "SHIPPING": 0,
+      "SUBTOTAL": 360,
+      "TAX": 34.0
+    }
+  },
+  "reused_template_final_total": 374.0,
+  "same_structure_same_certificate": true,
+  "same_structure_same_output": true,
+  "same_structure_same_state": true,
+  "stocrs_r_view": "resolve admissible structure to reveal output",
+  "version": "0.3"
+}
