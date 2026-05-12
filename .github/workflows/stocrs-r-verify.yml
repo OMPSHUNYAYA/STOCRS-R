@@ -1,0 +1,204 @@
+name: stocrs-r-verify
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify required repository files exist
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+
+          required_paths = [
+              "README.md",
+              "LICENSE",
+
+              "demo/stocrs_r_demo_v0_2.py",
+              "demo/stocrs_r_demo_v0_3.py",
+
+              "docs/Quickstart.md",
+              "docs/FAQ.md",
+              "docs/Proof-Sketch.md",
+              "docs/STOCRS-R-Architecture-Notes.md",
+              "docs/STOCRS-R-Enhancement-Model.md",
+              "docs/STOCRS-R-Challenge.md",
+              "docs/STOCRS-R-Diagram.png",
+              "docs/Dependency-Elimination-Framework.png",
+              "docs/Shunyaya-Structural-Stack.png",
+
+              "outputs/STOCRS_R_Demo_v0_3.json",
+              "outputs/STOCRS_R_Demo_v0_3_VERIFY.txt",
+
+              "VERIFY/VERIFY.txt",
+              "VERIFY/FREEZE_DEMO_SHA256.txt",
+          ]
+
+          missing = [p for p in required_paths if not Path(p).exists()]
+
+          if missing:
+              print("ERROR: Missing required repository files:")
+              for p in missing:
+                  print(" -", p)
+              sys.exit(1)
+
+          print("Required repository files verified.")
+          PY
+
+      - name: Verify frozen SHA256 hashes
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import re
+          import sys
+          from pathlib import Path
+
+          freeze_path = Path("VERIFY/FREEZE_DEMO_SHA256.txt")
+
+          targets = {
+              "demo/stocrs_r_demo_v0_2.py": Path("demo/stocrs_r_demo_v0_2.py"),
+              "demo/stocrs_r_demo_v0_3.py": Path("demo/stocrs_r_demo_v0_3.py"),
+          }
+
+          freeze_text = freeze_path.read_text(encoding="utf-8", errors="replace")
+
+          def sha256_file(path: Path) -> str:
+              return hashlib.sha256(path.read_bytes()).hexdigest()
+
+          for label, path in targets.items():
+              label_variants = [
+                  re.escape(label),
+                  re.escape(label.replace("/", "\\")),
+              ]
+
+              pattern = rf"({'|'.join(label_variants)})\s*SHA256:\s*([0-9a-f]{{64}})"
+              match = re.search(pattern, freeze_text, re.IGNORECASE)
+
+              if not match:
+                  print(f"ERROR: No frozen SHA256 entry found for {label}")
+                  sys.exit(1)
+
+              expected = match.group(2).lower()
+              actual = sha256_file(path).lower()
+
+              if actual != expected:
+                  print(f"ERROR: Hash mismatch for {label}")
+                  print("Expected:", expected)
+                  print("Actual:  ", actual)
+                  sys.exit(1)
+
+              print(f"Hash verified for {label}: {actual}")
+
+          print("Frozen SHA256 verification completed.")
+          PY
+
+      - name: Run STOCRS-R demo
+        shell: bash
+        run: |
+          python demo/stocrs_r_demo_v0_3.py
+
+      - name: Verify STOCRS-R output markers
+        shell: bash
+        run: |
+          python - <<'PY'
+          import subprocess
+          import sys
+
+          cmd = [sys.executable, "demo/stocrs_r_demo_v0_3.py"]
+
+          result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+
+          out = result.stdout
+
+          required_markers = [
+              "STOCRS-R",
+              "Structural Resolution",
+              "correctness = structure",
+              "RESOLVED",
+              "INCOMPLETE",
+              "CONFLICT",
+              "same structure -> same output -> same certificate",
+          ]
+
+          missing = [marker for marker in required_markers if marker not in out]
+
+          if missing:
+              print("ERROR: STOCRS-R output missing expected markers:")
+              for marker in missing:
+                  print(" -", marker)
+
+              print("\nFull output:\n")
+              print(out)
+
+              sys.exit(1)
+
+          print("STOCRS-R output markers verified.")
+          PY
+
+      - name: Verify deterministic replay
+        shell: bash
+        run: |
+          python - <<'PY'
+          import subprocess
+          import sys
+
+          cmd = [sys.executable, "demo/stocrs_r_demo_v0_3.py"]
+
+          result1 = subprocess.run(cmd, capture_output=True, text=True, check=True)
+          result2 = subprocess.run(cmd, capture_output=True, text=True, check=True)
+
+          if result1.stdout != result2.stdout:
+              print("ERROR: Non-deterministic STOCRS-R output")
+              sys.exit(1)
+
+          print("Deterministic replay verified.")
+          PY
+
+      - name: Verify README contains core STOCRS-R claims
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import sys
+
+          text = Path("README.md").read_text(encoding="utf-8", errors="replace")
+
+          required_snippets = [
+              "Structural Resolution Without Sequential Programming",
+              "output = resolve(structure)",
+              "output_visible iff structure_complete AND structure_consistent",
+              "same structure -> same output -> same certificate",
+              "correctness = structure",
+              "enhancement != reconstruction",
+              "STOCRS-R",
+              "demo/stocrs_r_demo_v0_3.py",
+              "VERIFY/FREEZE_DEMO_SHA256.txt",
+          ]
+
+          missing = [snippet for snippet in required_snippets if snippet not in text]
+
+          if missing:
+              print("ERROR: README.md is missing expected STOCRS-R claims:")
+              for snippet in missing:
+                  print(" -", snippet)
+
+              sys.exit(1)
+
+          print("README core claims verified.")
+          PY
