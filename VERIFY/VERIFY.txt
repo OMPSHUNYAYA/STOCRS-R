@@ -1,0 +1,336 @@
+STOCRS-R Verification — Structural Resolution
+
+1. Open the reference demonstration
+
+Option A (recommended)
+
+python stocrs_r_demo_v0_3.py
+
+Option B (from repository root)
+
+python demo/stocrs_r_demo_v0_3.py
+
+2. Observe
+
+deterministic structural application correctness
+no procedural sequencing dependency for correctness
+no synchronization dependency for correctness
+no replay choreography dependency for correctness
+no reconstruction dependency for correctness
+no external libraries
+correctness is not produced by procedural execution — it is determined by structure
+procedural realization does not determine correctness (only structural admissibility does)
+
+3. Expected baseline states
+
+complete structure
+
+  output_state: RESOLVED
+  output_visible: True
+  certificate: <stable hash>
+
+incomplete structure
+
+  output_state: INCOMPLETE
+  output_visible: False
+  reason: missing required structure
+
+conflicting structure
+
+  output_state: CONFLICT
+  output_visible: False
+  reason: conflicting admissibility conditions
+
+procedural variation
+
+  replay_path: changed
+  execution_order: changed
+  output_state: RESOLVED, if structure is complete AND consistent
+  (procedural variation does not affect correctness)
+
+4. Structural resolution rule
+
+structure_complete = TRUE AND structure_consistent = TRUE
+
+output_visible iff structure_complete AND structure_consistent
+
+resolve(S, P1) = resolve(S, P2) for all admissible procedural realizations P1, P2
+
+output = resolve(structure)
+
+5. Expected behavior
+
+complete structure      -> RESOLVED -> output visible
+incomplete structure    -> INCOMPLETE -> no output
+conflicting structure   -> CONFLICT -> no output
+
+identical input structure -> identical output + identical admissibility state
+identical input structure -> identical certificate
+
+procedural variation does not change correctness
+
+6. Verify determinism
+
+Run the same demo twice:
+
+python demo/stocrs_r_demo_v0_3.py
+python demo/stocrs_r_demo_v0_3.py
+
+Expected:
+
+same output
+same admissibility states
+same certificates
+
+Confirm:
+
+same structure -> same output -> same certificate
+
+6A. Verify full invariant
+
+For identical structures:
+
+resolution identical
+output identical
+certificate identical
+
+7. Verify representative cases
+
+Case 1 — Replay variation + complete structure
+
+Expected:
+
+  output_state: RESOLVED
+  output_visible: True
+  certificate: <stable>
+
+Case 2 — Incomplete structure
+
+Expected:
+
+  output_state: INCOMPLETE
+  output_visible: False
+  missing admissible structure is reported
+
+Case 3 — Conflicting structure
+
+Expected:
+
+  output_state: CONFLICT
+  output_visible: False
+  conflict reason is reported
+
+Case 4 — Replay determinism
+
+Expected:
+
+  first certificate == second certificate
+  replay match: True
+
+Case 5 — Same structure under reordered execution
+
+Expected:
+
+  output_state: RESOLVED
+  output_visible: True
+  certificate matches original admissible structure case
+
+Case 6 — Procedural invariance check
+
+Expected:
+
+  reordered replay certificate == original replay certificate
+  Same output: True
+  Same certificate: True
+
+7A. Structural Truth vs Procedural Dependency
+
+Compare procedural systems with STOCRS-R:
+
+Example:
+
+same structure with procedural order A
+same structure with procedural order B
+
+Expected:
+
+STOCRS-R:
+
+output remains unchanged
+certificate remains unchanged
+
+Traditional procedural interpretation:
+
+behavior may depend on sequencing
+replay divergence may occur
+
+Observation:
+
+procedural systems may confuse execution flow with correctness
+
+STOCRS-R separates correctness from procedural sequencing
+
+Conclusion:
+
+correctness != procedural sequencing
+
+correctness = resolve(structure)
+
+8. Verify distinct proof identities
+
+Different structures:
+
+complete structure
+incomplete structure
+conflicting structure
+
+Expected:
+
+different certificates may appear because structure has changed
+
+Confirm:
+
+different input structure -> certificate may differ
+
+9. Verify incomplete safety
+
+Remove required admissible structure.
+
+Expected:
+
+output_state: INCOMPLETE
+output_visible: False
+reason: missing required admissible structure
+
+10. Verify conflict safety
+
+Introduce contradictory admissibility conditions.
+
+Expected:
+
+output_state: CONFLICT
+output_visible: False
+reason: conflict detected
+
+11. Verify procedural independence
+
+Change procedural realization:
+
+execution order changed
+replay path changed
+orchestration flow changed
+
+Expected:
+
+if structure is complete AND consistent:
+
+output_state: RESOLVED
+certificate: unchanged
+
+(resolve(S, P1) = resolve(S, P2))
+
+12. Verify correctness consistency under procedural changes
+
+Same structure:
+
+procedural realization A
+procedural realization B
+
+Expected:
+
+same output
+same certificate
+
+Note:
+
+procedural realization is not part of structural correctness identity.
+
+13. Verify structural transitions
+
+Change structure:
+
+complete structure       -> RESOLVED
+missing structure        -> INCOMPLETE
+conflicting structure    -> CONFLICT
+
+Expected:
+
+state changes strictly follow structure
+
+14. Verify certificate components
+
+Expected:
+
+certificate is derived solely from structural resolution components, such as:
+
+declaration_sigma
+dependency_sigma
+overlay_sigma
+resolution_state
+
+Procedural realization does not change the certificate when structure remains identical.
+
+15. Normalization requirement
+
+normalized_output = normalize(Output)
+
+certificate = hash(normalized_output)
+
+Expected:
+
+certificate depends only on normalized admissible structural outcome
+representation format does not affect certificate
+procedural ordering does not affect certificate
+
+In the reference implementation:
+
+SHA-256 (truncated) is used for demonstration.
+
+16. Verify file identity
+
+certutil -hashfile stocrs_r_demo_v0_3.py SHA256
+
+or from repository root:
+
+certutil -hashfile demo\stocrs_r_demo_v0_3.py SHA256
+
+Note:
+
+file hash = file identity
+certificate = structural resolution artifact
+
+17. Structural resolution model
+
+resolve(structure) ->
+
+RESOLVED      if structure is complete AND consistent
+INCOMPLETE    if structure is incomplete
+CONFLICT      if structure is inconsistent
+
+18. Core invariant
+
+output = resolve(structure)
+
+output_visible iff structure_complete AND structure_consistent
+
+same structure -> same output -> same certificate
+
+Correctness claims apply only within the defined structural model.
+
+19. Confirm
+
+identical input structure -> identical output
+identical input structure -> identical certificate
+no procedural sequencing dependency for correctness
+no synchronization dependency for correctness
+no replay choreography dependency for correctness
+no reconstruction dependency for correctness
+procedural disorder does not imply correctness failure
+invalid structure does not produce output
+
+Result
+
+Deterministic structural application correctness confirmed for STOCRS-R.
+
+Application correctness is determined by structure —
+not from procedural sequencing, synchronization choreography, replay ordering, reconstruction pipelines, or execution choreography.

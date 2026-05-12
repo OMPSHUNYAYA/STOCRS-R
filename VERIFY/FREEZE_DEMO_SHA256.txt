@@ -1,0 +1,10 @@
+STOCRS-R — Hash Freeze (SHA256)
+
+demo\stocrs_r_demo_v0_2.py
+SHA256: aebc57f8844d2b57920ce58154ab299b1957ab10a04150097445ac6d77db798e
+
+demo\stocrs_r_demo_v0_3.py
+SHA256: f7199dfe3a6d684b77ec3ade36e11f2114c664d6dabc0271aa9640ae12432e32
+
+same file -> same hash
+different file -> different hash
