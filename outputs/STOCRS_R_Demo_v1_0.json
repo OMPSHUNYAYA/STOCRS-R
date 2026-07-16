@@ -1,0 +1,839 @@
+{
+  "all_checks_pass": true,
+  "base_final_total": 330.0,
+  "base_program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+  "base_run_a": {
+    "available_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [],
+    "certificate": "c55db141a011ac539fbbf65c79ed102112f3b3570a8cc77f41b96eec14812446",
+    "conflicts": {},
+    "declared_input_identity": "1d0747f4c0d2ab6a089f83922f87c808a538c5f84601b236a0e842a583874896",
+    "evidence_identity": "0b7f8534c7324482324b813a27febf3e06d07ea787006fad6dcf49c0148ca443",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": true,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "RESOLVED",
+    "supported_output": 330.0,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [],
+    "values": {
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 330.0,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 30.0
+    }
+  },
+  "base_run_b": {
+    "available_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [],
+    "certificate": "c55db141a011ac539fbbf65c79ed102112f3b3570a8cc77f41b96eec14812446",
+    "conflicts": {},
+    "declared_input_identity": "1d0747f4c0d2ab6a089f83922f87c808a538c5f84601b236a0e842a583874896",
+    "evidence_identity": "0b7f8534c7324482324b813a27febf3e06d07ea787006fad6dcf49c0148ca443",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": true,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "RESOLVED",
+    "supported_output": 330.0,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [],
+    "values": {
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 330.0,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 30.0
+    }
+  },
+  "checks": {
+    "compatible_repeated_claim_resolves": true,
+    "different_inputs_change_input_identity": true,
+    "enhancement_v1_program_identity_differs_from_base": true,
+    "enhancement_v1_resolves": true,
+    "enhancement_v2_resolves": true,
+    "incomplete_input_stays_incomplete": true,
+    "multi_value_claim_conflicts": true,
+    "policy_update_changes_program_identity": true,
+    "reverse_majority_cannot_override": true,
+    "same_program_identity_under_reordered_presentation": true,
+    "same_program_same_inputs_same_certificate": true,
+    "same_program_same_inputs_same_output": true,
+    "same_program_same_inputs_same_state": true,
+    "unanimous_wrong_claim_rejected": true,
+    "wrong_derived_claim_rejected": true
+  },
+  "compatible_claim_run": {
+    "available_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [],
+    "certificate": "379250d030441a97488cb885dedb1c0e978b7c354785743cf3e1e5babf354ee0",
+    "conflicts": {},
+    "declared_input_identity": "1d0747f4c0d2ab6a089f83922f87c808a538c5f84601b236a0e842a583874896",
+    "evidence_identity": "1583b99b4d3c94a65f7ad79b77640673c019bc2780c24c0586e0cdee8e1ba7f8",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": true,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "RESOLVED",
+    "supported_output": 330.0,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [],
+    "values": {
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 330.0,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 30.0
+    }
+  },
+  "demo_certificate": "b9933beee7810d44be54face75313aa69204fe963536e6ca67d31844cb2c4530",
+  "derived_wrong_claim_run": {
+    "available_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [
+      "FINAL_TOTAL"
+    ],
+    "certificate": "8be5663f003aa3806ac6c73258c78aaaed2cabc306f819f9edcf69863421e4d7",
+    "conflicts": {
+      "FINAL_TOTAL": {
+        "claim": 999,
+        "supported_value": 330.0,
+        "type": "claim_vs_structure"
+      }
+    },
+    "declared_input_identity": "1d0747f4c0d2ab6a089f83922f87c808a538c5f84601b236a0e842a583874896",
+    "evidence_identity": "9dbeb6edad1d53c228dc90e39a0fafb061706eaa26202063f6459c5eaf6c0ef1",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": false,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "CONFLICT",
+    "supported_output": null,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [],
+    "values": {
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 30.0
+    }
+  },
+  "enhanced_coupon_run_v1": {
+    "available_nodes": [
+      "AFTER_COUPON",
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "LOYALTY_COUPON",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [],
+    "certificate": "38e5cf30f6020f3c58746a796ec2c5fdb8154dcce13418e83550662f1f6e5e39",
+    "conflicts": {},
+    "declared_input_identity": "1d0747f4c0d2ab6a089f83922f87c808a538c5f84601b236a0e842a583874896",
+    "evidence_identity": "0b7f8534c7324482324b813a27febf3e06d07ea787006fad6dcf49c0148ca443",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "LOYALTY_COUPON",
+        "SHIPPING"
+      ],
+      [
+        "AFTER_COUPON"
+      ],
+      [
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": true,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "229d4cfe911ce842e71e4bb9aef489f5e75a42245eea12bf1543271b49699247",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "RESOLVED",
+    "supported_output": 313.5,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [],
+    "values": {
+      "AFTER_COUPON": 285,
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 313.5,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "LOYALTY_COUPON": 15,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 28.5
+    }
+  },
+  "enhanced_coupon_run_v2": {
+    "available_nodes": [
+      "AFTER_COUPON",
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "LOYALTY_COUPON",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [],
+    "certificate": "6fa5e863517e6ed9ae45c4d163b8c9adebc9929d9b854df3b16455f1eb0c922e",
+    "conflicts": {},
+    "declared_input_identity": "1d0747f4c0d2ab6a089f83922f87c808a538c5f84601b236a0e842a583874896",
+    "evidence_identity": "0b7f8534c7324482324b813a27febf3e06d07ea787006fad6dcf49c0148ca443",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "LOYALTY_COUPON",
+        "SHIPPING"
+      ],
+      [
+        "AFTER_COUPON"
+      ],
+      [
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": true,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "724ee987ad45da92d9c0fa517abb5613c9ea666a36af69b99130f0b09feab4cd",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "RESOLVED",
+    "supported_output": 302.5,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [],
+    "values": {
+      "AFTER_COUPON": 275,
+      "AFTER_DISCOUNT": 300,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 302.5,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80,
+      "LOYALTY_COUPON": 25,
+      "SHIPPING": 0,
+      "SUBTOTAL": 320,
+      "TAX": 27.5
+    }
+  },
+  "enhanced_final_total_v1": 313.5,
+  "enhanced_final_total_v2": 302.5,
+  "enhanced_program_v1_identity": "229d4cfe911ce842e71e4bb9aef489f5e75a42245eea12bf1543271b49699247",
+  "enhanced_program_v2_identity": "724ee987ad45da92d9c0fa517abb5613c9ea666a36af69b99130f0b09feab4cd",
+  "incomplete_run": {
+    "available_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [],
+    "certificate": "790e10eb6fe26c150de97e0e00922fef0527558d03615ee6b02b83f503c29e50",
+    "conflicts": {},
+    "declared_input_identity": "aa456976d4d1b83fbdda26146f78128992383b67ff412db8ac83cf3fdbfec3c5",
+    "evidence_identity": "0b7f8534c7324482324b813a27febf3e06d07ea787006fad6dcf49c0148ca443",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL"
+      ]
+    ],
+    "missing_inputs": [
+      "ITEM_B_PRICE"
+    ],
+    "output_visible": false,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "INCOMPLETE",
+    "supported_output": null,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "values": {
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 2,
+      "ITEM_A_TOTAL": 240,
+      "ITEM_B_QTY": 1
+    }
+  },
+  "multi_value_conflict_run": {
+    "available_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "certificate": "3417d43fd4cefa00f2ecf16ceaa335b8346e3f2fcdf97c68689eddae9411caf9",
+    "conflicts": {
+      "ITEM_A_PRICE": {
+        "claims": [
+          120,
+          999
+        ],
+        "type": "multi_value_conflict"
+      }
+    },
+    "declared_input_identity": "1d0747f4c0d2ab6a089f83922f87c808a538c5f84601b236a0e842a583874896",
+    "evidence_identity": "11686c79220c0caab582848e41c01600567ebfb44b4f2544095a8a57519ad25b",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": false,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "CONFLICT",
+    "supported_output": null,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "values": {
+      "ITEM_A_QTY": 2,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80
+    }
+  },
+  "name": "STOCRS-R Reference Demonstration",
+  "policy_update_story": "The coupon policy parameter changed from 15 to 25. The rulebook and resolver remained fixed, while program identity changed.",
+  "principles": [
+    "same complete program identity + same declared inputs -> same supported values",
+    "same semantic resolution inputs -> same state + same certificate",
+    "claim multiplicity != structural authority",
+    "declared rule mutation -> new program identity -> deterministic new supported output"
+  ],
+  "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+  "reusable_template_run": {
+    "available_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [],
+    "certificate": "3172dfd37e12735cb1e4f9ca904eeef4dcddcbee6ca16c68aa588a88bf713100",
+    "conflicts": {},
+    "declared_input_identity": "034c2fbe8d1be9c065d432cac732d41eb80680f8ebe7d4154ce2321ce47e8160",
+    "evidence_identity": "0b7f8534c7324482324b813a27febf3e06d07ea787006fad6dcf49c0148ca443",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": true,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "RESOLVED",
+    "supported_output": 374.0,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [],
+    "values": {
+      "AFTER_DISCOUNT": 340,
+      "DISCOUNT": 20,
+      "FINAL_TOTAL": 374.0,
+      "ITEM_A_PRICE": 120,
+      "ITEM_A_QTY": 1,
+      "ITEM_A_TOTAL": 120,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 3,
+      "ITEM_B_TOTAL": 240,
+      "SHIPPING": 0,
+      "SUBTOTAL": 360,
+      "TAX": 34.0
+    }
+  },
+  "reused_template_final_total": 374.0,
+  "reverse_majority_claim_run": {
+    "available_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "certificate": "3417d43fd4cefa00f2ecf16ceaa335b8346e3f2fcdf97c68689eddae9411caf9",
+    "conflicts": {
+      "ITEM_A_PRICE": {
+        "claims": [
+          120,
+          999
+        ],
+        "type": "multi_value_conflict"
+      }
+    },
+    "declared_input_identity": "1d0747f4c0d2ab6a089f83922f87c808a538c5f84601b236a0e842a583874896",
+    "evidence_identity": "11686c79220c0caab582848e41c01600567ebfb44b4f2544095a8a57519ad25b",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": false,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "CONFLICT",
+    "supported_output": null,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "values": {
+      "ITEM_A_QTY": 2,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80
+    }
+  },
+  "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+  "schema_version": "1.0.0",
+  "unanimous_wrong_claim_run": {
+    "available_nodes": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_QTY",
+      "ITEM_A_TOTAL",
+      "ITEM_B_PRICE",
+      "ITEM_B_QTY",
+      "ITEM_B_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "blocked": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_PRICE",
+      "ITEM_A_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "certificate": "5bd70d0f2f4d6ae74d7c5be020f80d89907b4c0cb5120ad5f3a73a1d5d489475",
+    "conflicts": {
+      "ITEM_A_PRICE": {
+        "claim": 999,
+        "supported_value": 120,
+        "type": "claim_vs_structure"
+      }
+    },
+    "declared_input_identity": "1d0747f4c0d2ab6a089f83922f87c808a538c5f84601b236a0e842a583874896",
+    "evidence_identity": "f18035ed83df9d065326231a60890e698548871f19ea412ac2d4b94aa15a7d67",
+    "frontiers": [
+      [
+        "ITEM_A_TOTAL",
+        "ITEM_B_TOTAL"
+      ],
+      [
+        "SUBTOTAL"
+      ],
+      [
+        "DISCOUNT"
+      ],
+      [
+        "AFTER_DISCOUNT"
+      ],
+      [
+        "SHIPPING",
+        "TAX"
+      ],
+      [
+        "FINAL_TOTAL"
+      ]
+    ],
+    "missing_inputs": [],
+    "output_visible": false,
+    "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+    "program_identity": "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb",
+    "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+    "schema_version": "1.0.0",
+    "state": "CONFLICT",
+    "supported_output": null,
+    "target_node": "FINAL_TOTAL",
+    "unresolved": [
+      "AFTER_DISCOUNT",
+      "DISCOUNT",
+      "FINAL_TOTAL",
+      "ITEM_A_TOTAL",
+      "SHIPPING",
+      "SUBTOTAL",
+      "TAX"
+    ],
+    "values": {
+      "ITEM_A_QTY": 2,
+      "ITEM_B_PRICE": 80,
+      "ITEM_B_QTY": 1,
+      "ITEM_B_TOTAL": 80
+    }
+  },
+  "version": "1.0"
+}

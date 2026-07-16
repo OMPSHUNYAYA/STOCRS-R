@@ -1,0 +1,32 @@
+STOCRS-R Reference Demonstration v1.0 VERIFY
+Profile: STOCRS-R-STRUCTURAL-RESOLUTION-1-D01
+Schema: 1.0.0
+Rulebook: STOCRS-R-RULEBOOK-1-D01
+
+Base final total: 330.0
+Reused template final total: 374.0
+Enhanced final total v1: 313.5
+Enhanced final total v2: 302.5
+
+Base program identity: 5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb
+Enhanced program v1 identity: 229d4cfe911ce842e71e4bb9aef489f5e75a42245eea12bf1543271b49699247
+Enhanced program v2 identity: 724ee987ad45da92d9c0fa517abb5613c9ea666a36af69b99130f0b09feab4cd
+
+same_program_same_inputs_same_output: PASS
+same_program_same_inputs_same_state: PASS
+same_program_same_inputs_same_certificate: PASS
+same_program_identity_under_reordered_presentation: PASS
+different_inputs_change_input_identity: PASS
+incomplete_input_stays_incomplete: PASS
+compatible_repeated_claim_resolves: PASS
+multi_value_claim_conflicts: PASS
+unanimous_wrong_claim_rejected: PASS
+reverse_majority_cannot_override: PASS
+wrong_derived_claim_rejected: PASS
+enhancement_v1_program_identity_differs_from_base: PASS
+policy_update_changes_program_identity: PASS
+enhancement_v1_resolves: PASS
+enhancement_v2_resolves: PASS
+
+ALL CHECKS: PASS
+Demo certificate: b9933beee7810d44be54face75313aa69204fe963536e6ca67d31844cb2c4530
