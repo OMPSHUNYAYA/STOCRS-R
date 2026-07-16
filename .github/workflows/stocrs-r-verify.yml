@@ -5,18 +5,22 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Verify required repository files exist
         shell: bash
@@ -29,38 +33,37 @@ jobs:
               "README.md",
               "LICENSE",
 
-              "demo/stocrs_r_demo_v0_2.py",
-              "demo/stocrs_r_demo_v0_3.py",
+              "demo/stocrs_resolution_demo_v1_0.py",
 
-              "docs/Quickstart.md",
+              "outputs/STOCRS_R_Demo_v1_0.json",
+              "outputs/STOCRS_R_Demo_v1_0_VERIFY.txt",
+
               "docs/FAQ.md",
               "docs/Proof-Sketch.md",
+              "docs/Quickstart.md",
               "docs/STOCRS-R-Architecture-Notes.md",
-              "docs/STOCRS-R-Enhancement-Model.md",
               "docs/STOCRS-R-Challenge.md",
+              "docs/STOCRS-R-Enhancement-Model.md",
               "docs/STOCRS-R-Diagram.png",
               "docs/Dependency-Elimination-Framework.png",
               "docs/Shunyaya-Structural-Stack.png",
 
-              "outputs/STOCRS_R_Demo_v0_3.json",
-              "outputs/STOCRS_R_Demo_v0_3_VERIFY.txt",
-
-              "VERIFY/VERIFY.txt",
+              "VERIFY/VERIFY.md",
               "VERIFY/FREEZE_DEMO_SHA256.txt",
           ]
 
-          missing = [p for p in required_paths if not Path(p).exists()]
+          missing = [path for path in required_paths if not Path(path).is_file()]
 
           if missing:
               print("ERROR: Missing required repository files:")
-              for p in missing:
-                  print(" -", p)
+              for path in missing:
+                  print(" -", path)
               sys.exit(1)
 
-          print("Required repository files verified.")
+          print(f"Required repository files verified: {len(required_paths)}")
           PY
 
-      - name: Verify frozen SHA256 hashes
+      - name: Verify frozen reference script SHA256
         shell: bash
         run: |
           python - <<'PY'
@@ -69,180 +72,294 @@ jobs:
           import sys
           from pathlib import Path
 
+          script_path = Path("demo/stocrs_resolution_demo_v1_0.py")
           freeze_path = Path("VERIFY/FREEZE_DEMO_SHA256.txt")
-
-          targets = {
-              "demo/stocrs_r_demo_v0_2.py": Path("demo/stocrs_r_demo_v0_2.py"),
-              "demo/stocrs_r_demo_v0_3.py": Path("demo/stocrs_r_demo_v0_3.py"),
-          }
 
           freeze_text = freeze_path.read_text(
               encoding="utf-8",
-              errors="replace"
+              errors="replace",
           )
 
-          def sha256_file(path: Path) -> str:
-              return hashlib.sha256(path.read_bytes()).hexdigest()
-
-          for label, path in targets.items():
-
-              label_variants = [
-                  re.escape(label),
-                  re.escape(label.replace("/", "\\")),
-              ]
-
-              pattern = (
-                  rf"({'|'.join(label_variants)})\s*SHA256:\s*([0-9a-f]{{64}})"
-              )
-
-              match = re.search(
-                  pattern,
-                  freeze_text,
-                  re.IGNORECASE
-              )
-
-              if not match:
-                  print(f"ERROR: No frozen SHA256 entry found for {label}")
-                  sys.exit(1)
-
-              expected = match.group(2).lower()
-              actual = sha256_file(path).lower()
-
-              if actual != expected:
-                  print(f"ERROR: Hash mismatch for {label}")
-                  print("Expected:", expected)
-                  print("Actual:  ", actual)
-                  sys.exit(1)
-
-              print(f"Hash verified for {label}: {actual}")
-
-          print("Frozen SHA256 verification completed.")
-          PY
-
-      - name: Run STOCRS-R demo
-        shell: bash
-        run: |
-          python demo/stocrs_r_demo_v0_3.py
-
-      - name: Verify STOCRS-R output markers
-        shell: bash
-        run: |
-          python - <<'PY'
-          import subprocess
-          import sys
-
-          cmd = [sys.executable, "demo/stocrs_r_demo_v0_3.py"]
-
-          result = subprocess.run(
-              cmd,
-              capture_output=True,
-              text=True,
-              check=True
+          pattern = (
+              r"demo[\\/]+stocrs_resolution_demo_v1_0\.py"
+              r"\s*SHA256:\s*([0-9a-fA-F]{64})"
           )
 
-          out = result.stdout
+          match = re.search(pattern, freeze_text, re.IGNORECASE)
 
-          required_markers = [
-              "STOCRS-R Demo v0.3",
-              "Principle: output = resolve(structure)",
-              "Law: output_visible iff structure_complete AND structure_consistent",
-              "Same structure same output: YES",
-              "Same structure same certificate: YES",
-              "Enhanced final total v1:",
-              "Enhanced final total v2:",
-              "Enhancement v2 total savings from base:",
-              "Incomplete state: INCOMPLETE",
-              "Conflict state: CONFLICT",
-              "Demo certificate:",
-          ]
-
-          missing = [
-              marker
-              for marker in required_markers
-              if marker not in out
-          ]
-
-          if missing:
-              print("ERROR: STOCRS-R output missing expected markers:")
-
-              for marker in missing:
-                  print(" -", marker)
-
-              print("\nFull output:\n")
-              print(out)
-
+          if not match:
+              print(
+                  "ERROR: No frozen SHA256 entry found for "
+                  "demo/stocrs_resolution_demo_v1_0.py"
+              )
               sys.exit(1)
 
-          print("STOCRS-R output markers verified.")
-          PY
+          expected = match.group(1).lower()
+          actual = hashlib.sha256(script_path.read_bytes()).hexdigest().lower()
 
-      - name: Verify deterministic replay
-        shell: bash
-        run: |
-          python - <<'PY'
-          import subprocess
-          import sys
-
-          cmd = [sys.executable, "demo/stocrs_r_demo_v0_3.py"]
-
-          result1 = subprocess.run(
-              cmd,
-              capture_output=True,
-              text=True,
-              check=True
-          )
-
-          result2 = subprocess.run(
-              cmd,
-              capture_output=True,
-              text=True,
-              check=True
-          )
-
-          if result1.stdout != result2.stdout:
-              print("ERROR: Non-deterministic STOCRS-R output")
+          if actual != expected:
+              print("ERROR: Frozen script hash mismatch.")
+              print("Expected:", expected)
+              print("Actual:  ", actual)
               sys.exit(1)
 
-          print("Deterministic replay verified.")
+          print("Frozen reference script SHA256 verified:")
+          print(actual)
           PY
 
-      - name: Verify README contains core STOCRS-R claims
+      - name: Run STOCRS-R v1.0 reference demonstration
+        shell: bash
+        run: |
+          python demo/stocrs_resolution_demo_v1_0.py | tee stocrs-r-run.txt
+
+      - name: Verify console summary and all 15 checks
         shell: bash
         run: |
           python - <<'PY'
           from pathlib import Path
           import sys
 
-          text = Path("README.md").read_text(
+          output = Path("stocrs-r-run.txt").read_text(
               encoding="utf-8",
-              errors="replace"
+              errors="replace",
           )
 
-          required_snippets = [
-              "Structural Resolution Without Sequential Programming",
-              "output = resolve(structure)",
-              "output_visible iff structure_complete AND structure_consistent",
-              "same structure -> same output -> same certificate",
-              "correctness = structure",
-              "enhancement != reconstruction",
-              "STOCRS-R",
-              "demo/stocrs_r_demo_v0_3.py",
-              "VERIFY/FREEZE_DEMO_SHA256.txt",
+          required_lines = [
+              "STOCRS-R Reference Demonstration v1.0",
+              "Base final total: 330.0",
+              "Reused template final total: 374.0",
+              "Enhanced final total v1: 313.5",
+              "Enhanced final total v2: 302.5",
+              "same_program_same_inputs_same_output: PASS",
+              "same_program_same_inputs_same_state: PASS",
+              "same_program_same_inputs_same_certificate: PASS",
+              "same_program_identity_under_reordered_presentation: PASS",
+              "different_inputs_change_input_identity: PASS",
+              "incomplete_input_stays_incomplete: PASS",
+              "compatible_repeated_claim_resolves: PASS",
+              "multi_value_claim_conflicts: PASS",
+              "unanimous_wrong_claim_rejected: PASS",
+              "reverse_majority_cannot_override: PASS",
+              "wrong_derived_claim_rejected: PASS",
+              "enhancement_v1_program_identity_differs_from_base: PASS",
+              "policy_update_changes_program_identity: PASS",
+              "enhancement_v1_resolves: PASS",
+              "enhancement_v2_resolves: PASS",
+              "ALL CHECKS: PASS",
+              (
+                  "Demo certificate: "
+                  "b9933beee7810d44be54face75313aa69204fe963536e6ca67d31844cb2c4530"
+              ),
           ]
 
-          missing = [
-              snippet
-              for snippet in required_snippets
-              if snippet not in text
-          ]
+          missing = [line for line in required_lines if line not in output]
 
           if missing:
-              print("ERROR: README.md is missing expected STOCRS-R claims:")
-
-              for snippet in missing:
-                  print(" -", snippet)
-
+              print("ERROR: Reference demonstration output is missing expected lines:")
+              for line in missing:
+                  print(" -", line)
+              print("\nFull captured output:\n")
+              print(output)
               sys.exit(1)
 
-          print("README core claims verified.")
+          print("Console summary and 15/15 PASS checks verified.")
           PY
+
+      - name: Verify generated reference artifacts
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          json_path = Path("outputs/STOCRS_R_Demo_v1_0.json")
+          verify_path = Path("outputs/STOCRS_R_Demo_v1_0_VERIFY.txt")
+
+          data = json.loads(json_path.read_text(encoding="utf-8"))
+          verify_text = verify_path.read_text(
+              encoding="utf-8",
+              errors="replace",
+          )
+
+          expected_checks = [
+              "same_program_same_inputs_same_output",
+              "same_program_same_inputs_same_state",
+              "same_program_same_inputs_same_certificate",
+              "same_program_identity_under_reordered_presentation",
+              "different_inputs_change_input_identity",
+              "incomplete_input_stays_incomplete",
+              "compatible_repeated_claim_resolves",
+              "multi_value_claim_conflicts",
+              "unanimous_wrong_claim_rejected",
+              "reverse_majority_cannot_override",
+              "wrong_derived_claim_rejected",
+              "enhancement_v1_program_identity_differs_from_base",
+              "policy_update_changes_program_identity",
+              "enhancement_v1_resolves",
+              "enhancement_v2_resolves",
+          ]
+
+          expected = {
+              "name": "STOCRS-R Reference Demonstration",
+              "version": "1.0",
+              "schema_version": "1.0.0",
+              "profile": "STOCRS-R-STRUCTURAL-RESOLUTION-1-D01",
+              "rulebook_id": "STOCRS-R-RULEBOOK-1-D01",
+              "base_final_total": 330.0,
+              "reused_template_final_total": 374.0,
+              "enhanced_final_total_v1": 313.5,
+              "enhanced_final_total_v2": 302.5,
+              "base_program_identity": (
+                  "5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb"
+              ),
+              "enhanced_program_v1_identity": (
+                  "229d4cfe911ce842e71e4bb9aef489f5e75a42245eea12bf1543271b49699247"
+              ),
+              "enhanced_program_v2_identity": (
+                  "724ee987ad45da92d9c0fa517abb5613c9ea666a36af69b99130f0b09feab4cd"
+              ),
+              "demo_certificate": (
+                  "b9933beee7810d44be54face75313aa69204fe963536e6ca67d31844cb2c4530"
+              ),
+          }
+
+          errors = []
+
+          for key, expected_value in expected.items():
+              actual = data.get(key)
+              if actual != expected_value:
+                  errors.append(
+                      f"{key}: expected {expected_value!r}, got {actual!r}"
+                  )
+
+          checks = data.get("checks")
+
+          if not isinstance(checks, dict):
+              errors.append("checks: expected a dictionary")
+          else:
+              if set(checks) != set(expected_checks):
+                  errors.append(
+                      "checks: expected exactly the 15 declared v1.0 checks"
+                  )
+
+              failed = [
+                  name
+                  for name in expected_checks
+                  if checks.get(name) is not True
+              ]
+
+              if failed:
+                  errors.append(
+                      "checks not passing: " + ", ".join(failed)
+                  )
+
+          if data.get("all_checks_pass") is not True:
+              errors.append("all_checks_pass is not true")
+
+          required_verify_lines = [
+              "STOCRS-R Reference Demonstration v1.0 VERIFY",
+              "Base final total: 330.0",
+              "Reused template final total: 374.0",
+              "Enhanced final total v1: 313.5",
+              "Enhanced final total v2: 302.5",
+              "ALL CHECKS: PASS",
+              (
+                  "Demo certificate: "
+                  "b9933beee7810d44be54face75313aa69204fe963536e6ca67d31844cb2c4530"
+              ),
+          ]
+
+          for check_name in expected_checks:
+              required_verify_lines.append(f"{check_name}: PASS")
+
+          missing_verify_lines = [
+              line
+              for line in required_verify_lines
+              if line not in verify_text
+          ]
+
+          if missing_verify_lines:
+              errors.append(
+                  "VERIFY output is missing: "
+                  + "; ".join(missing_verify_lines)
+              )
+
+          if errors:
+              print("ERROR: Generated reference artifact verification failed:")
+              for error in errors:
+                  print(" -", error)
+              sys.exit(1)
+
+          print("Generated JSON and VERIFY artifacts verified.")
+          print("All 15 declared checks are PASS.")
+          PY
+
+      - name: Verify committed outputs reproduce exactly
+        shell: bash
+        run: |
+          if ! git diff --exit-code -- \
+            outputs/STOCRS_R_Demo_v1_0.json \
+            outputs/STOCRS_R_Demo_v1_0_VERIFY.txt
+          then
+            echo "ERROR: Running the frozen reference demo changed committed output artifacts."
+            echo "Regenerate and commit the current outputs before merging."
+            exit 1
+          fi
+
+          echo "Committed output artifacts reproduce exactly."
+
+      - name: Verify deterministic replay across presentation seeds
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          import subprocess
+          import sys
+
+          command = [
+              sys.executable,
+              "demo/stocrs_resolution_demo_v1_0.py",
+          ]
+
+          def run(seed, hash_seed):
+              env = dict(os.environ)
+              env["PYTHONHASHSEED"] = str(hash_seed)
+
+              result = subprocess.run(
+                  command + ["--seed", str(seed), "--no-write"],
+                  capture_output=True,
+                  text=True,
+                  check=True,
+                  env=env,
+              )
+
+              return result.stdout
+
+          first = run(seed=101, hash_seed=1)
+          second = run(seed=2026, hash_seed=999)
+
+          if first != second:
+              print(
+                  "ERROR: Reference summary changed across "
+                  "different presentation seeds or Python hash seeds."
+              )
+              print("\n--- First run ---\n")
+              print(first)
+              print("\n--- Second run ---\n")
+              print(second)
+              sys.exit(1)
+
+          print(
+              "Deterministic replay verified across different "
+              "presentation seeds and Python hash seeds."
+          )
+          PY
+
+      - name: Verification complete
+        shell: bash
+        run: |
+          echo "STOCRS-R v1.0 verification completed successfully."
+          echo "15/15 checks PASS."
+          echo "Frozen script identity verified."
+          echo "Committed outputs reproduce exactly."
