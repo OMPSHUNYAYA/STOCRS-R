@@ -1,721 +1,1271 @@
 # ⭐ STOCRS-R — Architecture Notes
 
-**Structural Resolution**  
-**Correctness Without Sequential Programming**
+## Deterministic Structural Resolution and Versioned Program Evolution
 
-**Shunyaya Structural Resolution Model**
+**Reference:** STOCRS-R v1.0  
+**Profile:** `STOCRS-R-STRUCTURAL-RESOLUTION-1-D01`  
+**Schema:** `1.0.0`  
+**Rulebook:** `STOCRS-R-RULEBOOK-1-D01`
 
-**Deterministic • Structure-Based • Resolution-Driven**
-
-**No Sequential Dependency • No Procedural Reconstruction Dependency • No Synchronization Dependency for Correctness**
+**Deterministic • Structure-Driven • Conflict-Aware • Replay-Verifiable**
 
 ---
 
 # 1. Architectural Purpose
 
-STOCRS-R defines a structural application resolution architecture in which:
+STOCRS-R defines a bounded structural-resolution architecture in which a declared program is resolved from explicit semantic inputs rather than allowing node-presentation order or claim repetition to become result authority.
 
-application correctness is derived from structure
-—not from procedural sequencing, execution order, synchronization flow, reconstruction pipelines, or runtime choreography.
+The v1.0 reference model separates:
 
-It enables systems to:
+- declared program definition
+- declared inputs
+- evidence
+- available nodes
+- target node
+- frozen resolver semantics
+- resolution state
+- supported output
+- program identity
+- deterministic resolution certificates
 
-- determine correctness through structural admissibility  
-- avoid false output under incomplete structure  
-- prevent unsafe output under conflicting structure  
-- produce deterministic and reproducible application outcomes  
-- evolve through reusable structural continuity  
-- support replay-safe deterministic enhancement  
+Its current governing relation is:
+
+`same program identity + same declared inputs + same evidence + same available-node set + complete presentation of that set -> same supported values`
+
+For the complete semantic resolution state:
+
+`same semantic resolution inputs -> same state + same certificate`
+
+The reference implementation also demonstrates:
+
+`claim multiplicity != structural authority`
+
+and:
+
+`declared rule mutation -> new program identity -> deterministic new supported output`
+
+The architecture is intentionally bounded.
+
+It does not claim that execution disappears or that arbitrary software is universally independent of sequence, synchronization, timing, or orchestration.
 
 ---
 
 # 2. Core Architectural Principle
 
-`correctness = resolve(structure)`
+A STOCRS-R resolution case can be described as:
 
-application correctness is determined by:
+`X = (P, I, E, A, T, R)`
 
-`resolve(structure)`
+where:
 
-## Implication
+- `P` = declared program definition
+- `I` = declared inputs
+- `E` = submitted evidence or claims
+- `A` = available-node set
+- `T` = target node
+- `R` = frozen resolver semantics and rulebook
 
-Application correctness does not depend on:
+The current reference architecture resolves:
 
-- procedural sequencing  
-- execution order  
-- synchronization flow  
-- runtime choreography  
-- reconstruction pipelines  
-- timing coordination  
+`resolve(P, I, E, A, T, R)`
 
-Application correctness depends only on:
+The architecture therefore does not reduce correctness to a single undifferentiated object called "structure."
 
-- structural completeness  
-- structural consistency  
+It explicitly distinguishes:
+
+`program definition != declared inputs != evidence != node availability != resolution result`
+
+This separation is essential because:
+
+`same program + different inputs -> potentially different output`
+
+and:
+
+`same resolver + changed program definition -> new program identity`
 
 ---
 
-## 2.1 Architectural Theorem (STOCRS-Resolution)
+## 2.1 Architectural Invariant
 
-Given admissible structure `S`:
+Within the frozen STOCRS-R v1.0 model:
 
-`application_correctness = resolve(S)`
+`same semantic resolution inputs -> same semantic resolution result`
 
-and is independent of:
+The current semantic resolution result includes:
 
-- procedural order  
-- synchronization  
-- replay ordering  
-- execution choreography  
-- reconstruction flow  
+- supported values
+- unresolved nodes
+- missing inputs
+- conflicts
+- blocked nodes
+- resolution frontiers
+- resolution state
+- output visibility
+- supported output
 
-These influence only:
+The corresponding certificate relation is:
 
-- capability  
-- realization  
-- orchestration  
-- execution behavior  
+`same semantic resolution inputs -> same state + same certificate`
 
-They do not determine correctness.
+subject to the deterministic canonical serialization and SHA-256 identity scheme used by the reference implementation.
+
+---
+
+## 2.2 Presentation-Order Boundary
+
+The v1.0 demonstration verifies that reordering the complete presentation of the same available-node set does not change the tested:
+
+- supported output
+- resolution state
+- program identity
+- resolution certificate
+
+The bounded relation is:
+
+`same semantic resolution inputs + same complete available-node set -> same tested resolution result`
+
+This does not establish universal order independence for arbitrary:
+
+- concurrent systems
+- message streams
+- side-effecting applications
+- distributed workflows
+- databases
+- networks
+- orchestration systems
+
+The architectural claim is narrower:
+
+`node-presentation order is not result authority for the demonstrated reference cases`
 
 ---
 
 # 3. High-Level Architecture
 
-STOCRS-R separates the system into three conceptual layers.
+STOCRS-R can be understood through five conceptual layers.
 
 ---
 
-## 3.1 Structural Truth Layer
+## 3.1 Program Definition Layer
+
+Responsible for declaring:
+
+- node identities
+- node kinds
+- dependency relationships
+- rule identities
+- rule parameters
+
+The program definition is canonicalized and bound to a deterministic program identity.
+
+Program identity includes:
+
+`profile + schema version + rulebook identity + canonical program definition`
+
+This layer determines the frozen program being resolved.
+
+It does not include the current declared input values.
+
+---
+
+## 3.2 Resolution Input Layer
+
+Responsible for supplying:
+
+- declared inputs
+- evidence or claims
+- available-node set
+- target node
+
+Declared inputs receive a separate deterministic identity.
+
+Evidence is normalized and receives a separate deterministic identity.
+
+This separation prevents the architecture from treating:
+
+`same program identity`
+
+as equivalent to:
+
+`same complete resolution case`
+
+---
+
+## 3.3 Structural Resolution Layer
 
 Responsible for:
 
-- evaluating structure  
-- determining admissibility  
-- resolving correctness visibility  
+- loading supported input values
+- tracking unresolved nodes
+- identifying missing inputs
+- resolving deterministic dependency frontiers
+- applying frozen rules
+- comparing evidence against supported values
+- detecting conflicts
+- blocking conflict descendants
+- classifying the final resolution state
+- determining output visibility
 
-Defined by:
+This is the core STOCRS-R resolver.
 
-`resolve(S) -> resolution_state`
+Its output states are:
 
-Outputs:
-
-- RESOLVED  
-- INCOMPLETE  
-- CONFLICT  
-
-This layer is independent of procedural sequencing.
-
----
-
-## 3.2 Capability Layer (Execution Systems)
-
-Responsible for:
-
-- rendering  
-- orchestration  
-- runtime capability  
-- interface execution  
-- procedural realization  
-
-Includes:
-
-- runtime environments  
-- execution engines  
-- orchestration systems  
-- procedural pipelines  
-
-This layer does not determine correctness.
-
-It only enables capability.
-
----
-
-## 3.3 Interface Layer (Optional)
-
-Responsible for:
-
-- presenting application outcomes  
-- exposing admissibility states  
-- visualizing replay and enhancement states  
-
-Includes:
-
-- APIs  
-- dashboards  
-- interfaces  
-- orchestration visibility systems  
-
-This layer does not determine correctness.
-
-It only expresses structurally admissible outcomes.
-
----
-
-## 3.4 Relation to Declarative and Constraint-Based Systems
-
-STOCRS-R shares conceptual similarities with declarative programming and constraint-based systems, but differs in architectural emphasis, replay guarantees, and enhancement behavior.
-
----
-
-### Primary Architectural Focus
-
-STOCRS-R prioritizes:
-
-- deterministic application evolution
-- replay-safe structural continuity
-- reusable structural admissibility
-- deterministic enhancement through admissible mutation
-
-rather than primarily focusing on:
-
-- query evaluation
-- logical inference
-- execution planning
-- constraint satisfaction
-
-The architectural emphasis is therefore:
-
-`deterministic structural application evolution`
-
----
-
-### First-Class Safe Absence
-
-STOCRS-R treats safe absence as a deliberate structural outcome.
-
-If admissible structure does not resolve:
-
+- `RESOLVED`
 - `INCOMPLETE`
 - `CONFLICT`
 
-then no visible output is admitted.
+---
 
-Absence is treated as structural truth — not merely as an execution error condition.
+## 3.4 Verification Layer
+
+Responsible for producing reproducible identities for:
+
+- program definition
+- declared inputs
+- normalized evidence
+- individual resolution cases
+- aggregate demonstration output
+- frozen source files
+
+The current repository distinguishes:
+
+`program identity`
+
+`declared-input identity`
+
+`evidence identity`
+
+`resolution certificate`
+
+`demo certificate`
+
+`file SHA-256`
+
+These verification objects serve different purposes.
+
+They should not be treated as interchangeable.
 
 ---
 
-### Structural Enhancement Distinction
+## 3.5 Operational and Interface Layer
 
-STOCRS-R enhancement follows:
+Responsible for capabilities such as:
 
-`small structural mutation -> deterministic upgraded output`
+- running the resolver
+- persistence
+- communication
+- APIs
+- user interfaces
+- dashboards
+- deployment
+- orchestration
+- monitoring
+- scaling
 
-without requiring resolver reconstruction.
+This layer remains operationally necessary where an application requires those capabilities.
 
-This enables:
+STOCRS-R does not claim to eliminate execution infrastructure.
 
-- replay-safe upgrades
-- structural inheritance across versions
-- reusable structural continuity
-- deterministic enhancement preservation
-
-This enhancement model differs from most declarative and constraint-oriented architectures.
-
----
-
-### Correctness Substrate Interpretation
-
-STOCRS-R may coexist with declarative systems and can function conceptually as a:
-
-`structural correctness substrate`
-
-beneath declarative or orchestration layers.
-
-However, STOCRS-R enforces the stricter invariant:
-
-`same structure -> same output -> same certificate`
-
-across all admissible procedural realizations.
+The architectural distinction is that, within the reference model, those operational mechanisms do not determine the supported result by altering node-presentation order or claim multiplicity.
 
 ---
 
-# 4. Structural Data Model
+# 4. Program Data Model
 
 ---
 
-## 4.1 Structure (S)
+## 4.1 Input Nodes
 
-Structure (`S`) represents the complete and consistent set of declarations, admissibility relationships, dependencies, and enhancement overlays required for deterministic output visibility.
+An input node declares:
 
-This includes:
+- `kind = input`
+- no dependencies
+- rule identity `DECLARED_INPUT`
 
-- declarations  
-- dependency structure  
-- admissibility relationships  
-- reusable structural templates  
-- enhancement overlays  
-- structural continuity states  
-- conflict states  
-- completeness states  
+Its value is supplied through the declared-input map.
 
----
+If an available input node has no corresponding declared input, that node becomes:
 
-## 4.2 Structural Resolution Condition
-
-`structure_complete AND structure_consistent`
-
-Only when satisfied:
-
-`resolve(S) -> RESOLVED`
+- unresolved
+- recorded as missing
 
 ---
 
-## 4.3 Visibility Rule
+## 4.2 Derived Nodes
 
-`output_visible iff structure_complete AND structure_consistent`
+A derived node declares:
 
-Absence of output indicates structural non-resolution.
+- `kind = derived`
+- dependency list
+- rule identity
+- rule parameters
 
----
+A derived node becomes ready only when all of its declared dependencies have supported values.
 
-## 4.4 Definition of Correctness
+The readiness condition is:
 
-Correctness is the visible outcome of a structure that resolves.
-
-It is not produced by procedural sequencing.
-
-It becomes visible only when structure resolves.
-
----
-
-# 5. Resolution Model
+`ready(node) iff every declared dependency has a supported value`
 
 ---
 
-## 5.1 Resolution Function
+## 4.3 Supported Reference Rules
 
-`resolve(S) ->`
+The current v1.0 reference implementation includes a finite explicit rule set:
 
-- RESOLVED if structure is complete AND consistent  
-- INCOMPLETE if structure is incomplete  
-- CONFLICT if structure is inconsistent  
+- `MULTIPLY`
+- `ADD`
+- `THRESHOLD_VALUE`
+- `SUBTRACT`
+- `PERCENT_ROUND`
+- `ZERO_IF_THRESHOLD_ELSE_VALUE`
+- `SUM_ROUND`
 
----
+For each frozen rule:
 
-## 5.2 Correctness Validity
+`same rule + same dependency values + same parameters -> same result`
 
-An application state is correct when:
-
-- structure is complete  
-- structure is consistent  
-- no admissibility conflict exists  
-- all required structural conditions are satisfied  
-
----
-
-## 5.3 Competing Structure Handling
-
-When multiple structural conditions exist:
-
-- admissible structures are evaluated independently  
-- inconsistent structures are rejected  
-- incomplete structures do not force output  
-
-Resolution depends only on structurally admissible conditions.
+within the supported Python reference environment.
 
 ---
 
-# 6. Deterministic Output Model
+# 5. Program Identity Model
+
+The current program identity is computed from a canonical payload containing:
+
+- profile
+- schema version
+- rulebook identity
+- canonical program definition
+
+The canonical program definition contains:
+
+- node identity
+- node kind
+- dependency list
+- rule identity
+- rule parameters
+
+Program nodes are serialized deterministically by node identity.
+
+Therefore:
+
+`same canonical program definition -> same program identity`
+
+Different program payloads are expected to produce different SHA-256 fingerprints under the current identity scheme.
+
+The hash serves as a compact verification fingerprint.
+
+It is not a mathematical proof that cryptographic collisions are impossible.
 
 ---
 
-## 6.1 Application Outcome
+## 5.1 Program Identity Is Not Input Identity
 
-Visible output is the minimal structurally admissible outcome.
+Declared input values are deliberately excluded from program identity.
 
-It excludes:
+Therefore:
 
-- procedural traces  
-- execution ordering history  
-- synchronization metadata  
-- replay choreography  
+`same program identity + different declared inputs -> potentially different supported output`
 
----
+The reference demonstration verifies this directly.
 
-## 6.2 Structural Certificate
+The same base program produces:
 
-`normalized_output = normalize(Output)`
+`330.0`
 
-`certificate = hash(normalized_output)`
+for one declared-input set and:
 
-The certificate is a deterministic structural fingerprint derived solely from the resolved output structure.
+`374.0`
 
-Current reference implementation uses SHA-256 for demonstration.
+for another.
 
-Normalization ensures that only admissible structural content affects the certificate.
-
-Execution order, runtime sequence, orchestration state, and formatting have zero influence.
+The program identity remains unchanged while the declared-input identity changes.
 
 ---
 
-## 6.3 Deterministic Guarantee
+# 6. Declared-Input Identity
 
-`S1 = S2 -> Output1 = Output2 -> Certificate1 = Certificate2`
+Declared inputs receive a separate canonical identity:
 
-Correctness is independent of:
+`declared_input_identity = SHA256(canonical declared inputs)`
 
-- execution order  
-- replay ordering  
-- runtime sequencing  
-- orchestration flow  
+This allows STOCRS-R to distinguish:
 
----
+`program reuse`
 
-## 6.4 Dual-Proof Mechanism: Structural Signature + Certificate
+from:
 
-STOCRS-R employs two complementary deterministic structural fingerprints:
+`program mutation`
 
-- **Structural signature** — SHA-256 hash of the admissible structural dependency graph (`nodes + declared dependencies`).  
-  It proves that the admissible structural foundation itself was identical across runs or systems.
+Program reuse:
 
-- **Certificate** — SHA-256 hash of the normalized resolved output.  
-  It proves that the visible admissible outcome was identical.
+`same program identity + different declared-input identity`
 
-Together they form a dual-proof replay mechanism.
+Program mutation:
 
-Combined invariant:
+`different canonical program definition -> different program identity`
 
-`same structural signature + same certificate`
-
-`-> identical admissible structure + identical resolved outcome`
-
-independent of:
-
-- execution order
-- replay path
-- orchestration flow
-- synchronization timing
-- procedural realization
-
-This separates:
-
-- structural identity
-from
-- resolved-output identity
-
-The dual-proof mechanism strengthens:
-
-- replay verification
-- deterministic convergence
-- structural reproducibility
-- admissibility validation
-- replay-safe enhancement verification
-
-The reference implementation exposes both structural and output-level verification artifacts through:
-
-- `STOCRS_R_Demo_v0_3.json`
-- verification outputs
-- deterministic replay certificates
+This distinction is central to versioned structural resolution.
 
 ---
 
-# 7. Structural Independence Properties
+# 7. Evidence and Claim Model
+
+Evidence is treated as a separate semantic input.
+
+For each claimed node:
+
+- a scalar claim becomes a one-element list
+- identical duplicates are collapsed
+- distinct values are preserved
+- claim order does not select authority
+- repetition count does not select authority
+
+The governing relation is:
+
+`claim multiplicity != structural authority`
 
 ---
 
-## 7.1 Sequence Independence
+## 7.1 Compatible Repetition
 
-Correctness is independent of:
+Example:
 
-- procedural order  
-- replay sequencing  
-- synchronization flow  
-- orchestration choreography  
+`ITEM_A_PRICE: [120, 120]`
 
-`resolve(S, P1) = resolve(S, P2)`
+normalizes to:
 
-for all admissible procedural realizations `P1`, `P2`.
+`[120]`
 
----
+If `120` is the structurally supported value, the claim is compatible.
 
-## 7.2 Idempotence
-
-Repeated evaluation produces:
-
-- identical output  
-- identical admissibility state  
-- identical certificate  
+Repeated compatible evidence does not alter the supported value.
 
 ---
 
-## 7.3 Replay Independence
+## 7.2 Conflicting Distinct Claims
 
-Correctness is independent of:
+Example:
 
-- replay order  
-- replay timing  
-- execution sequencing  
+`ITEM_A_PRICE: [120, 999]`
 
-Replay may exist in implementation,
-but does not determine correctness.
+produces:
 
----
+`multi_value_conflict`
 
-# 8. Safety Model
+The resolver does not select a majority or preferred value.
 
 ---
 
-## 8.1 Incomplete Structure
+## 7.3 Repeated Unsupported Claim
 
-`resolve(S) -> INCOMPLETE`
+Example:
 
-Guarantee:
+`ITEM_A_PRICE: [999, 999]`
 
-- no forced output  
+normalizes to:
 
----
+`[999]`
 
-## 8.2 Conflicting Structure
+If the supported declared input is `120`, the result is:
 
-`resolve(S) -> CONFLICT`
+`claim_vs_structure`
 
-Guarantee:
-
-- no arbitrary output  
+Repetition does not create authority.
 
 ---
 
-## 8.3 Invalid Structure
+## 7.4 Reverse-Majority Claim
 
-Invalid admissibility conditions:
+Example:
 
-- are rejected  
-- do not override admissible structure  
+`ITEM_A_PRICE: [999, 999, 120]`
 
----
+normalizes to the distinct values:
 
-## 8.4 Core Safety Principle
+`[120, 999]`
 
-- incomplete -> no forced output  
-- conflicting -> no unsafe output  
-- complete -> deterministic output  
+The result is:
 
----
+`multi_value_conflict`
 
-# 9. Structural Replay Convergence
-
-Given identical admissible structure:
-
-`S1 = S2`
-
-Then:
-
-- identical output  
-- identical certificate  
-
-Convergence is:
-
-- deterministic  
-- replay-independent  
-- sequence-independent  
+The number of repetitions does not select a winner.
 
 ---
 
-## 9.1 Practical Verification of Architectural Properties
+# 8. Resolution Algorithm
 
-All properties defined in this document can be verified in under 60 seconds using the reference implementation.
-
-- Determinism and convergence  
-  Run `python demo/stocrs_resolution_demo_v0_3.py` twice  
-  -> identical certificates  
-
-- Structural enhancement  
-  Compare `v0_2` and `v0_3`  
-  -> same resolver + upgraded admissible structure  
-
-- Incomplete safety  
-  Remove required admissible structure  
-  -> observe `INCOMPLETE`  
-
-- Conflict safety  
-  Introduce conflicting admissibility conditions  
-  -> observe `CONFLICT`  
-
-- Replay convergence  
-  Same structure produces identical output and certificate across repeated runs and environments  
-
-No synchronized execution flow, replay choreography, or orchestration coordination is required for verification.
+The core resolver proceeds through deterministic stages.
 
 ---
 
-# 10. Dependency Elimination Model
+## 8.1 Stage 1 — Load Presented Available Nodes
 
-STOCRS-R removes:
+The resolver considers nodes that are:
 
-- procedural sequencing dependency  
-- reconstruction dependency  
-- synchronization dependency  
-- replay ordering dependency  
-- execution choreography dependency (for correctness)  
+- present in the available-node set
+- present in the declared program
+- included in the supplied presentation
 
-Yet preserves:
-
-- deterministic application correctness  
-
-If correctness remains after removing a dependency, that dependency was never fundamental to correctness.
+For the current presentation-order guarantee, the tested presentation is complete with respect to the available-node set.
 
 ---
 
-## 10.1 Mapping
+## 8.2 Stage 2 — Resolve Declared Inputs
 
-Dependency Removed -> What Preserves Correctness
+For each presented input node:
 
-procedural sequence -> structure  
-reconstruction flow -> structure  
-synchronization -> structure  
-execution choreography -> structure  
+`declared value exists -> supported value`
 
----
-
-# 11. Architectural Implications
-
-STOCRS-R shifts application design from:
-
-| Traditional Model | STOCRS-R Model |
-|---|---|
-| correctness from procedural flow | correctness from structure |
-| sequencing defines admissibility | structure defines admissibility |
-| replay coordination required | replay structurally reproducible |
-| reconstruction required | structural continuity preserved |
-| execution ordering required | execution ordering optional |
+`declared value missing -> unresolved + missing input`
 
 ---
 
-# 12. What This Architecture Enables
+## 8.3 Stage 3 — Build Ready Frontiers
 
-- deterministic structural correctness  
-- replay-safe application evolution  
-- reusable structural continuity  
-- conflict-safe admissibility  
-- deterministic structural replay  
-- minimal mutation enhancement  
-- correctness under procedural disorder  
+Among unresolved derived nodes, a node becomes ready when:
 
----
+`all declared dependencies are supported`
 
-# 13. Failure Reinterpretation
+The ready set is sorted deterministically.
 
-In STOCRS-R:
-
-procedural disruption -> capability impact  
-not -> correctness failure
-
-This redefines failure from:
-
-incorrect application
-
-to
-
-temporarily unrealized admissible structure
+That sorted set becomes the next resolution frontier.
 
 ---
 
-# 14. Architectural Boundaries (Phase I)
+## 8.4 Stage 4 — Apply Frozen Rules
 
-STOCRS-R Phase I deliberately defines only the structural correctness layer — not a full production runtime, orchestration platform, or distributed execution architecture.
+Every ready node is evaluated using:
 
----
+- its declared rule identity
+- its declared dependencies
+- its declared parameters
+- already supported dependency values
 
-## What Phase I Establishes
+Resolved nodes are removed from the unresolved set.
 
-Phase I establishes:
+The process repeats until no additional node is ready.
 
-- deterministic structural resolution
-- explicit safe absence semantics (`INCOMPLETE` / `CONFLICT`)
-- replay-safe deterministic enhancement through minimal admissible mutation
-- independence of correctness from:
-  - procedural sequencing
-  - synchronization
-  - replay ordering
-  - reconstruction flow
-  - orchestration choreography
-- empirical verifiability of all architectural properties using only the reference implementation
-
-Core architectural invariant:
-
-`same structure -> same output -> same certificate`
+Because the declared program is finite and each non-empty frontier removes at least one unresolved derived node, the frontier process terminates.
 
 ---
 
-## Explicit Limitations of Phase I
+## 8.5 Stage 5 — Evaluate Evidence
 
-Phase I is intentionally minimal.
+Normalized evidence is compared against supported values.
 
-Current limitations include:
+The current conflict types include:
 
-- reference implementation is minimal (`pure Python + standard library only`) and not performance-optimized
-- no built-in persistence, distributed resolution, or large-scale orchestration support
-- performance characteristics are not yet formally benchmarked
-- formal machine-checked proofs (`Coq`, `Lean`, or equivalent systems) are planned for future phases
-- production use in safety-critical, financial, or real-time systems requires independent validation
+- `unknown_claim_node`
+- `multi_value_conflict`
+- `claim_without_supported_value`
+- `claim_vs_structure`
 
----
-
-## Phase I Assumptions
-
-Phase I assumes:
-
-- structure definitions are provided by the caller and treated as authoritative
-- certificates are structural fingerprints (`SHA-256` of normalized output), not external cryptographic trust proofs
-- the model applies to structure-resolvable application correctness domains
-- all architectural properties are empirically verifiable using only the reference implementation
+Compatible evidence does not create a conflict.
 
 ---
 
-## Purpose of the Minimal Scope
+## 8.6 Stage 6 — Propagate Conflict Blocking
 
-Phase I deliberately isolates the structural invariant so that future architectural layers may build upon a proven deterministic foundation.
+If a node conflicts, the resolver computes its dependency descendants.
 
-The goal is not orchestration scale.
+Conflicting nodes and their descendants form the blocked set.
 
-The goal is to establish that:
+Blocked values are removed from the visible supported-value map.
 
-`deterministic application correctness can emerge directly from admissible structure`
-
-without requiring procedural sequencing as the source of correctness.
+This prevents a value downstream of conflicting evidence from remaining visible as an unaffected supported value.
 
 ---
 
-# 15. Relationship to Shunyaya Framework
+## 8.7 Stage 7 — Classify Resolution State
 
-STOCRS-R extends the structural elimination pattern:
+The current precedence rule is:
 
-- SLANG -> correctness without execution  
-- ORL -> correctness without ordering  
-- STIME -> correctness without time  
-- STINT -> correctness without connectivity  
-- STILE -> correctness without communication  
-- SVARE -> correctness without computation  
-- STOCRS -> correctness without sequence or synchronization  
-- STOCRS-R -> reusable deterministic structural application evolution  
+`if conflicts exist -> CONFLICT`
 
-Each removes a dependency.
+`else if unresolved nodes remain -> INCOMPLETE`
 
-Correctness remains preserved by structure.
+`else -> RESOLVED`
 
----
+Therefore:
 
-# 16. Unified Architectural Principle
+`CONFLICT` takes precedence over `INCOMPLETE`
 
-Use execution systems for capability.
-
-Use structure for admissibility.
-
-Execution enables applications to run.
-
-Structure determines whether they are admissible.
+at the top-level state.
 
 ---
 
-# 17. Final Architectural Statement
+## 8.8 Stage 8 — Determine Output Visibility
 
-STOCRS-R defines a structural application resolution architecture in which:
+The exact reference rule is:
 
-application admissibility is determined deterministically from complete and consistent structure.
+`output_visible iff state = RESOLVED AND target_node is supported`
 
-It is independent of procedural sequencing, synchronization flow, replay ordering, and reconstruction choreography.
+Therefore:
 
-If structure is incomplete, no output is produced.
+`INCOMPLETE -> no supported final output`
 
-If structure is conflicting, no arbitrary output is allowed.
+`CONFLICT -> no supported final output`
+
+`RESOLVED + unsupported target -> no supported final output`
+
+The architecture does not infer a target result merely because some other nodes are supported.
+
+---
+
+# 9. Resolution States
+
+---
+
+## 9.1 `RESOLVED`
+
+A case is `RESOLVED` when:
+
+- no evidence conflict exists
+- no presented available node remains unresolved
+
+A final supported output is visible only if the target node is also supported.
+
+---
+
+## 9.2 `INCOMPLETE`
+
+A case is `INCOMPLETE` when:
+
+- no evidence conflict exists
+- one or more presented available nodes remain unresolved
+
+The reference demonstration includes a missing-input case in which:
+
+`ITEM_B_PRICE`
+
+is absent.
+
+The resulting state is:
+
+`INCOMPLETE`
+
+with:
+
+`output_visible = false`
+
+`supported_output = null`
+
+---
+
+## 9.3 `CONFLICT`
+
+A case is `CONFLICT` when evidence:
+
+- contains multiple distinct values for one claimed node
+- disagrees with a structurally supported value
+- claims an unsupported value
+- refers to an unknown node
+
+A `CONFLICT` case does not expose a supported final output.
+
+---
+
+# 10. Deterministic Presentation-Order Property
+
+The base reference program is evaluated using different seeded node-presentation orders.
+
+The v1.0 demonstration verifies:
+
+`same_program_same_inputs_same_output: PASS`
+
+`same_program_same_inputs_same_state: PASS`
+
+`same_program_same_inputs_same_certificate: PASS`
+
+`same_program_identity_under_reordered_presentation: PASS`
+
+The architectural explanation is:
+
+- initial values are stored by node identity
+- unresolved nodes are stored as a set
+- missing inputs are stored as a set
+- complete presentation contains the same tested node set
+- readiness depends on dependency satisfaction
+- every ready frontier is sorted deterministically
+
+Therefore the tested presentation order does not act as result authority.
+
+---
+
+## 10.1 Boundary of the Property
+
+This property does not imply that STOCRS-R has eliminated:
+
+- execution order from all software
+- synchronization from distributed systems
+- concurrency hazards
+- side effects
+- message ordering
+- orchestration
+- persistence ordering
+- networking requirements
+
+It demonstrates a narrower property of the reference resolver:
+
+`reordering the complete presentation of the same available nodes does not change the tested semantic result`
+
+---
+
+# 11. Certificate Architecture
+
+Each resolution case receives a SHA-256 certificate derived from a canonical semantic payload.
+
+The certificate binds fields including:
+
+- profile
+- schema version
+- rulebook identity
+- program identity
+- declared-input identity
+- evidence identity
+- available nodes
+- resolution state
+- output visibility
+- target node
+- supported output
+- supported values
+- unresolved nodes
+- missing inputs
+- conflicts
+- blocked nodes
+- deterministic resolution frontiers
+
+The current relation is:
+
+`same semantic resolution inputs -> same semantic payload -> same certificate`
+
+within the frozen reference model.
+
+---
+
+## 11.1 What the Certificate Represents
+
+The resolution certificate is a reproducible fingerprint of the canonical semantic result payload.
+
+It supports:
+
+- replay comparison
+- reference verification
+- change detection
+- case identity comparison
+
+---
+
+## 11.2 What the Certificate Does Not Prove
+
+The certificate does not independently prove:
+
+- truthfulness of declared inputs
+- correctness of business policy
+- legal correctness
+- financial correctness
+- safety certification
+- real-world validity
+- universal semantic equivalence
+
+It identifies the result produced by the declared frozen model.
+
+---
+
+# 12. Verification Object Separation
+
+STOCRS-R v1.0 separates several verification identities.
+
+---
+
+## 12.1 Program Identity
+
+Identifies:
+
+`the canonical declared program definition`
+
+---
+
+## 12.2 Declared-Input Identity
+
+Identifies:
+
+`the canonical declared input set`
+
+---
+
+## 12.3 Evidence Identity
+
+Identifies:
+
+`the canonical normalized evidence set`
+
+---
+
+## 12.4 Resolution Certificate
+
+Identifies:
+
+`the canonical semantic result of one resolution case`
+
+---
+
+## 12.5 Demo Certificate
+
+Identifies:
+
+`the aggregate committed reference-demonstration result`
+
+Current expected demo certificate:
+
+`b9933beee7810d44be54face75313aa69204fe963536e6ca67d31844cb2c4530`
+
+---
+
+## 12.6 Frozen File SHA-256
+
+Identifies:
+
+`the exact committed source file bytes`
+
+Current frozen reference script SHA-256:
+
+`5f9f248546674fbf9e67be3956c7db2e0029a7c9c5965b055665a291a799fa95`
+
+These identities serve different verification roles.
+
+---
+
+# 13. Versioned Program Evolution
+
+STOCRS-R separates:
+
+`resolver continuity`
+
+from:
+
+`program identity change`
+
+A declared program may evolve while the resolver and rulebook remain unchanged.
+
+The current bounded enhancement relation is:
+
+`declared rule mutation -> new program identity -> deterministic new supported output`
+
+---
+
+## 13.1 Base Program
+
+Current base result:
+
+`330.0`
+
+Current base program identity:
+
+`5dcf47c311d9633cc97fe92c3aad31d541ef1aa3ecf1eee8efed6e16808502cb`
+
+---
+
+## 13.2 Enhanced Program v1
+
+Adds a loyalty-coupon branch and resolves to:
+
+`313.5`
+
+Program identity:
+
+`229d4cfe911ce842e71e4bb9aef489f5e75a42245eea12bf1543271b49699247`
+
+---
+
+## 13.3 Enhanced Program v2
+
+Changes the declared coupon amount:
+
+`15 -> 25`
+
+and resolves to:
+
+`302.5`
+
+Program identity:
+
+`724ee987ad45da92d9c0fa517abb5613c9ea666a36af69b99130f0b09feab4cd`
+
+---
+
+## 13.4 Architectural Interpretation
+
+The resolver does not need to be rewritten for the demonstrated policy change.
+
+Instead:
+
+`same resolver + same rulebook + changed declared program -> new versioned program identity`
+
+This enables explicit comparison between:
+
+- resolver change
+- program change
+- input change
+- evidence change
+
+Those are architecturally different events.
+
+---
+
+# 14. Replay Stability
+
+For the same semantic resolution case:
+
+`resolve(X) = resolve(X)`
+
+Repeated equivalent runs produce the same:
+
+- supported values
+- state
+- supported output
+- resolution certificate
+
+The current reference demonstration also verifies this property under reordered complete node presentation.
+
+This is a replay-stability property of the frozen reference model.
+
+It is not a claim that arbitrary external dependencies or nondeterministic services are automatically reproducible.
+
+---
+
+# 15. Safety Model
+
+---
+
+## 15.1 Missing Information
+
+Missing required input produces explicit unresolved structure.
+
+The resolver does not invent a replacement value.
+
+---
+
+## 15.2 Conflicting Evidence
+
+Conflicting evidence produces:
+
+`CONFLICT`
+
+The resolver does not force a majority winner.
+
+---
+
+## 15.3 Unsupported Claims
+
+An unsupported claim does not override the value supported by the declared program and inputs.
+
+---
+
+## 15.4 Downstream Conflict Containment
+
+Structural descendants of conflicting nodes are blocked from remaining visible as unaffected supported values.
+
+---
+
+## 15.5 Final-Output Suppression
+
+The target output is visible only when:
+
+`state = RESOLVED`
+
+and:
+
+`target node is supported`
+
+This is the reference model's primary output-safety boundary.
+
+---
+
+# 16. Relationship to Execution Systems
+
+STOCRS-R does not define an execution-free architecture.
+
+The reference implementation itself performs deterministic execution.
+
+Operational systems may still be needed for:
+
+- computation
+- persistence
+- communication
+- scheduling
+- deployment
+- monitoring
+- user interaction
+- distributed coordination
+
+The STOCRS-R distinction is:
+
+`operational execution exists`
+
+while:
+
+`the tested node-presentation order and claim multiplicity do not select the supported result`
+
+Within the reference model, the supported result is determined by:
+
+- declared program definition
+- declared inputs
+- normalized evidence
+- available nodes
+- frozen resolver semantics
+
+---
+
+# 17. Relationship to Declarative and Constraint-Based Systems
+
+STOCRS-R shares characteristics with existing declarative, rule-based, dependency-driven, and constraint-oriented systems.
+
+It is not positioned as a replacement for:
+
+- declarative programming
+- Datalog
+- rule engines
+- constraint solvers
+- workflow systems
+- general-purpose programming
+
+Its current architectural focus is the combination of:
+
+- explicit program identity
+- separate input identity
+- separate evidence identity
+- deterministic dependency resolution
+- explicit incompleteness
+- conflict-aware output suppression
+- non-majoritarian claim handling
+- deterministic case certificates
+- versioned program evolution
+
+These properties can coexist with conventional execution and orchestration systems.
+
+---
+
+# 18. Architectural Comparison
+
+| Concern | Conventional Operational Approach | STOCRS-R v1.0 Reference Approach |
+|---|---|---|
+| Program definition | Often embedded in executable code or configuration | Explicit canonical program definition |
+| Inputs | Runtime data | Separately identified declared inputs |
+| Evidence | Application-specific | Separately normalized and identified claims |
+| Missing information | Often error, default, retry, or exception | Explicit unresolved state |
+| Conflicting claims | Application-specific reconciliation | Explicit conflict; no majority selection |
+| Node presentation | May affect procedural execution | Tested complete presentation order does not select result |
+| Program evolution | Code/configuration change | Explicit program-identity change |
+| Replay comparison | Logs, outputs, traces | Canonical semantic certificate |
+| Source integrity | File checksums | Separate frozen SHA-256 |
+
+This table describes the STOCRS-R reference architecture.
+
+It does not imply that conventional systems cannot implement similar properties.
+
+---
+
+# 19. Architecture Boundaries
+
+The current v1.0 architecture does not establish:
+
+- universal sequence independence
+- universal synchronization independence
+- distributed consensus
+- transactional durability
+- production-grade persistence
+- large-scale orchestration
+- cross-language semantic equivalence
+- automatic equivalence of differently encoded programs
+- cryptographic collision impossibility
+- universal performance guarantees
+- domain correctness of supplied rules
+- truthfulness of supplied data
+- safety-critical certification
+
+The reference architecture is deliberately bounded and falsifiable.
+
+---
+
+# 20. Falsification Targets
+
+A significant counterexample within the declared model would include:
+
+- identical semantic resolution inputs producing different supported values
+- identical semantic resolution inputs producing different certificates
+- complete reordering of the same tested available-node set changing the supported result
+- repeated unsupported claims overriding the declared structural result
+- majority repetition selecting a winner
+- missing required input still producing the demonstrated supported final output
+- conflicting evidence remaining silently accepted
+- a declared rule-parameter change failing to change the canonical program payload
+- repeated equivalent runs producing different aggregate reference results
+
+These are direct architectural challenge points.
+
+---
+
+# 21. Practical Verification
+
+Run from the repository root:
+
+```bash
+python demo/stocrs_resolution_demo_v1_0.py
+```
+
+Expected:
+
+`ALL CHECKS: PASS`
+
+The current demonstration performs 15 checks:
+
+`same_program_same_inputs_same_output: PASS`
+
+`same_program_same_inputs_same_state: PASS`
+
+`same_program_same_inputs_same_certificate: PASS`
+
+`same_program_identity_under_reordered_presentation: PASS`
+
+`different_inputs_change_input_identity: PASS`
+
+`incomplete_input_stays_incomplete: PASS`
+
+`compatible_repeated_claim_resolves: PASS`
+
+`multi_value_claim_conflicts: PASS`
+
+`unanimous_wrong_claim_rejected: PASS`
+
+`reverse_majority_cannot_override: PASS`
+
+`wrong_derived_claim_rejected: PASS`
+
+`enhancement_v1_program_identity_differs_from_base: PASS`
+
+`policy_update_changes_program_identity: PASS`
+
+`enhancement_v1_resolves: PASS`
+
+`enhancement_v2_resolves: PASS`
+
+Expected demo certificate:
+
+`b9933beee7810d44be54face75313aa69204fe963536e6ca67d31844cb2c4530`
+
+Expected frozen script SHA-256:
+
+`5f9f248546674fbf9e67be3956c7db2e0029a7c9c5965b055665a291a799fa95`
+
+---
+
+# 22. Current Architectural Guarantees
+
+Within the declared STOCRS-R v1.0 reference model:
+
+- fixed semantic resolution inputs produce deterministic supported values
+- equivalent complete node presentation does not change the tested result
+- missing required inputs remain explicitly unresolved
+- conflicting evidence suppresses final supported-output visibility
+- repeated identical claims do not gain authority through multiplicity
+- competing distinct claims produce conflict rather than majority selection
+- wrong derived-value claims are rejected
+- program identity is separate from input identity
+- evidence identity is separate from program identity
+- one frozen resolver can resolve multiple declared program versions
+- the demonstrated declared rule mutations produce explicit versioned program-identity changes
+- canonical semantic result payloads receive reproducible resolution certificates
+
+---
+
+# 23. Relationship to the Shunyaya Framework
+
+STOCRS-R belongs to the broader Shunyaya structural-resolution direction.
+
+Its specific architectural contribution is bounded to:
+
+`deterministic structural application resolution + explicit versioned program evolution`
+
+Within that scope, STOCRS-R demonstrates that operational ordering need not be the sole authority over a supported result when the reference resolver is given the same complete semantic resolution inputs.
+
+This is consistent with the broader Shunyaya dependency-elimination principle:
+
+`operational dependency may remain while no longer serving as the sole resolution authority`
+
+For STOCRS-R v1.0, the demonstrated dependency boundary is:
+
+`node-presentation order is not the sole authority over the tested supported result`
+
+The implementation does not claim elimination of execution itself.
+
+---
+
+# 24. Unified Architectural Principle
+
+The STOCRS-R v1.0 architecture can be summarized as:
+
+`declare the program`
+
+`identify the inputs`
+
+`normalize the evidence`
+
+`resolve supported dependency frontiers`
+
+`preserve incompleteness`
+
+`reject conflict`
+
+`expose the target only when resolved`
+
+`bind the semantic result to a reproducible certificate`
+
+For program evolution:
+
+`change the declared program -> change the program identity -> resolve the new version deterministically`
+
+---
+
+# 25. Final Architectural Statement
+
+STOCRS-R v1.0 defines a bounded deterministic structural-resolution architecture in which:
+
+**A declared program is resolved from explicit program structure, declared inputs, normalized evidence, available nodes, and frozen rules without allowing the tested node-presentation order or claim repetition to become result authority.**
+
+Its central relations are:
+
+`same program identity + same declared inputs + same evidence + same available-node set + complete presentation of that set -> same supported values`
+
+`same semantic resolution inputs -> same state + same certificate`
+
+`claim multiplicity != structural authority`
+
+`declared rule mutation -> new program identity -> deterministic new supported output`
+
+Execution remains necessary to run the resolver and any surrounding system.
+
+The architectural contribution is narrower and more precise:
+
+**within the declared STOCRS-R v1.0 reference model, deterministic structural resolution determines the supported result while the tested presentation order and claim repetition do not.**
+
+---
+
+## Cross-Document Consistency
+
+These architecture notes are aligned with the current:
+
+- STOCRS-R README
+- Proof Sketch
+- Verification Guide
+- reference Python implementation
+- generated JSON result
+- generated verification summary
+- frozen demo SHA-256
+
+For reproducible verification, run:
+
+`python demo/stocrs_resolution_demo_v1_0.py`
+
+and compare the generated outputs with the committed reference artifacts.
