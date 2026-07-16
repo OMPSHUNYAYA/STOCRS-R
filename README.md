@@ -36,6 +36,10 @@ and:
 
 ---
 
+![STOCRS-R Structural Resolution and Versioned Program Evolution](docs/STOCRS-R-Diagram.png)
+
+---
+
 ## 🌐 STOCRS-R — Structural Resolution Layer
 
 STOCRS-R continues the structural direction explored by [STOCRS](https://github.com/OMPSHUNYAYA/STOCRS), while focusing on a narrower application-level question:
