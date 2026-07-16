@@ -13,8 +13,6 @@
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![Open-Standard](https://img.shields.io/badge/Reference-Open%20Standard-blue)
 
-![Verify](https://github.com/OMPSHUNYAYA/STOCRS-R/actions/workflows/stocrs-r-verify.yml/badge.svg)
-
 ---
 
 **Where structure resolves and output becomes visible.**
