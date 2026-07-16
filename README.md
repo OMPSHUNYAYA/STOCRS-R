@@ -10,6 +10,8 @@
 ![Replay-Verified](https://img.shields.io/badge/Replay-Verifiable-blue)
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 
+[![STOCRS-R Verify](https://github.com/OMPSHUNYAYA/STOCRS-R/actions/workflows/stocrs-r-verify.yml/badge.svg)](https://github.com/OMPSHUNYAYA/STOCRS-R/actions/workflows/stocrs-r-verify.yml)
+
 ---
 
 **Where declared program structure, inputs, evidence, and available nodes determine a supported result within a frozen reference model.**
@@ -22,7 +24,7 @@ Its current core relation is:
 
 For the full semantic resolution state:
 
-`same semantic resolution inputs -> same state + same certificate`
+`same semantic resolution inputs + complete presentation of the same available-node set -> same state + same certificate`
 
 The current reference model also enforces:
 
@@ -255,13 +257,13 @@ It does not claim that arbitrary real-world execution order, orchestration, comm
 
 STOCRS-R v1.0 treats program evolution as an explicit identity change.
 
-A program identity changes when the canonical program definition changes.
+Program identity is recomputed from the canonical program definition, and the demonstrated program changes produce distinct program identities.
 
 That definition includes both structural relationships and frozen rule parameters.
 
 Therefore:
 
-`different frozen program definition -> different program identity`
+`the demonstrated changed frozen program definitions -> distinct program identities`
 
 The resolver itself can remain unchanged while a declared policy mutation produces a new versioned program identity and a new deterministic supported result.
 
@@ -306,7 +308,7 @@ The certificate binds fields including:
 
 The current certificate relation is:
 
-`same semantic resolution inputs -> same state + same certificate`
+`same semantic resolution inputs + complete presentation of the same available-node set -> same state + same certificate`
 
 The demonstration also produces a separate aggregate demo certificate.
 
@@ -373,7 +375,7 @@ Within the declared v1.0 reference model, the demonstration verifies:
 - rejection of unsupported unanimous claims
 - rejection of majority-style claim authority
 - validation of claims against supported derived values
-- deterministic program-identity changes when frozen rule parameters change
+- distinct program identities for the demonstrated frozen rule-parameter changes
 - reproducible SHA-256 resolution certificates
 
 The reference implementation uses Python 3.9+ and the standard library only.
@@ -429,12 +431,12 @@ The current reference model is intended to be inspectable and challengeable.
 
 Useful falsification targets include demonstrating, within the declared v1.0 model, that:
 
-- identical semantic resolution inputs produce different certificates
+- identical semantic resolution inputs with complete presentation of the same available-node set produce different certificates
 - reordered presentation of the same tested program changes the supported result
 - an incomplete required input still produces a supported final output
 - conflicting evidence is silently treated as supported truth
 - repeated unsupported claims override the declared structural result
-- a frozen rule-parameter change leaves program identity unchanged
+- the demonstrated frozen coupon rule-parameter change leaves program identity unchanged
 
 A demonstrated counterexample within the declared model would identify a failure in the current implementation or its stated invariant.
 
@@ -555,7 +557,7 @@ Its central relation is:
 
 with:
 
-`same semantic resolution inputs -> same state + same certificate`
+`same semantic resolution inputs + complete presentation of the same available-node set -> same state + same certificate`
 
 and:
 
